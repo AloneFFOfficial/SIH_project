@@ -64,7 +64,7 @@ if __name__ == "__main__":
     if not db_queries:
         print("No queries in the database.")
     else:
-        query_system.add_queries_from_db(db_queries)
+        query_system.add_query(db_queries)
 
     '''Viewing the queries in memory after adding from the database'''
     print("\nStored Queries in Memory after adding from the Database:")
