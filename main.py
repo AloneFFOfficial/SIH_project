@@ -15,3 +15,21 @@ class Database:
 class query(Database):
     def __init__(self):
         super().__init__()
+
+    
+    def add_query(self, query_text):
+        try:
+            cur.execute(f"insert into {self.table_name} query values ",(query_text))
+            print("query added succesfully")
+        except exception as e:
+            print(f"error occured : {e} ")
+    
+    
+    def view_queries(self):
+        try:
+        cur.execute("select *from quieries") 
+        all_queries= self.cur.fetchall()     
+        return all_queries
+        except Exception as e:
+            print(f"queries not found:{e}")
+
