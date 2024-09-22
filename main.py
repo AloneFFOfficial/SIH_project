@@ -1,20 +1,21 @@
 import sqlite3 as sql
 
-'''Creating Database Class'''
+'''Geting data from database'''
 class Database:
-    def __init__(self, table_name):
+    def __init__(self):
         self.conn = sql.connect('Data.db')
         self.cur = self.conn.cursor() 
-        self.table_name = table_name 
-
-    '''Fetching data from the db'''
-    def fetch_all(self):
-        self.cur.execute(f'SELECT * FROM {self.table_name}')
-        return self.cur.fetchall()
-
-    '''Closing db connection'''
-    def close(self):
+        data = self.cur.execute('select * from query')
+        self.data = data.fetchall()
         self.conn.close()
+        
+    def __str__(self):
+        return self.data
+
+
+
+
+
 
 '''Creating the query class'''
 class QueryStorage:
@@ -83,6 +84,6 @@ if __name__ == "__main__":
         for query_id, query_text in db_queries:
             print(f"ID: {query_id}, Query: {query_text}")
 
-    '''Closing the Database'''
-    db.close()
+
+
     
