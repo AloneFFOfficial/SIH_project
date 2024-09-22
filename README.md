@@ -21,7 +21,7 @@ This project implements a query storage system that can handle queries in memory
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/query-storage-system.git
+   git clone https://github.com/AloneFFOfficial/SIH_project.git
    ```
 
 2. **Install SQLite3**:
