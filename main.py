@@ -12,10 +12,8 @@ class Database:
     def __str__(self):
         return self.data
 
-
-
-
-
+    def get_data(self):
+        return self.data
 
 '''Creating the query class'''
 class QueryStorage:
@@ -56,33 +54,28 @@ if __name__ == "__main__":
     '''Calling the query class'''
     query_system = QueryStorage()
 
-    '''Adding data in the dict'''
-    query_system.add_query(1, "What is the fee structure?")
-    query_system.add_query(2, "How can I apply for a scholarship?")
-    query_system.add_query(3, "What documents are needed for admission?")
+    '''Getting queries from the Database'''
+    db = Database()
 
-    '''Viewing queries in the dict'''
-    print("\nStored Queries in Memory:")
+    '''Fetching and adding queries from the Database to QueryStorage'''
+    print("\nFetching queries from the database and adding them to memory:")
+    db_queries = db.get_data()
+    
+    if not db_queries:
+        print("No queries in the database.")
+    else:
+        query_system.add_queries_from_db(db_queries)
+
+    '''Viewing the queries in memory after adding from the database'''
+    print("\nStored Queries in Memory after adding from the Database:")
     query_system.view_queries()
 
     '''Deleting data from the query dict'''
     query_system.delete_query(2)
 
-    '''This Shows all the queries which were deleted'''
+    '''Viewing remaining queries in memory after deletion'''
     print("\nStored Queries in Memory after Deletion:")
     query_system.view_queries()
-
-    '''Geting queries from the Database'''
-    db = Database("query_table")
-
-    '''showing queries from the Database'''
-    print("\nStored Queries in Database:")
-    db_queries = db.fetch_all()
-    if not db_queries:
-        print("No queries in the database.")
-    else:
-        for query_id, query_text in db_queries:
-            print(f"ID: {query_id}, Query: {query_text}")
 
 
 
