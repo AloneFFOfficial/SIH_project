@@ -1,107 +1,103 @@
+### `README.md`
 
 # Query Storage System
 
-This project implements a query storage system that can handle queries in memory (using a dictionary) and fetch queries from an SQLite database. The project is divided into two main classes:
+This is a simple Python project that demonstrates how to store, view, and manage query data both in memory and in a SQLite database. It uses two main classes: `Database` to interact with a SQLite database, and `QueryStorage` to manage queries in memory.
 
-- `QueryStorage`: Manages in-memory storage using a dictionary.
-- `Database`: Reads data from an SQLite database.
+## Project Structure
 
-## Table of Contents
+- **Database Class**: This class handles the connection to the SQLite database and retrieves data from a table named `query`.
+- **QueryStorage Class**: This class is responsible for storing queries in memory as a dictionary and providing methods to add, view, and delete queries.
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Classes](#classes)
-  - [QueryStorage](#querystorage-class)
-  - [Database](#database-class)
-- [Example Usage](#example-usage)
-- [Contributing](#contributing)
-- [License](#license)
+## Features
 
-## Installation
+1. **Store Queries from Database to Memory**:
+   - Queries are fetched from a SQLite database (`Data.db`) and stored in an in-memory Python dictionary.
+   
+2. **Add Queries**:
+   - You can add individual queries to the dictionary by specifying a `query_id` and `query_text`.
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/AloneFFOfficial/SIH_project.git
-   ```
+3. **View Queries**:
+   - Displays all queries stored in memory.
 
-2. **Install SQLite3**:
-   If you don't have SQLite installed, follow the [SQLite installation guide](https://www.sqlite.org/download.html) based on your operating system.
+4. **Delete Queries**:
+   - Queries can be deleted by specifying their `query_id`.
 
-## Usage
+## Requirements
 
-- The `QueryStorage` class allows you to store, view, and delete queries in memory using a Python dictionary.
-- The `Database` class interacts with an SQLite database and fetches all data from a specified table.
+- Python 3.x
+- SQLite3 (pre-installed with Python)
+- SQLite database named `Data.db` with a table called `query`.
 
-## Classes
+### Example Table Structure for the `query` table:
 
-### QueryStorage Class
+```sql
+CREATE TABLE query (
+  id INTEGER PRIMARY KEY,
+  text TEXT
+);
+```
 
-**Methods**:
+### Sample Data for the `query` table:
 
-1. `add_query(query_id, query_text)`:
-   - Adds a query to the in-memory dictionary.
-   - Throws an error if the query ID already exists.
+```sql
+INSERT INTO query (id, text) VALUES (1, 'What is the fee structure?');
+INSERT INTO query (id, text) VALUES (2, 'How can I apply for a scholarship?');
+INSERT INTO query (id, text) VALUES (3, 'What documents are needed for admission?');
+```
 
-2. `view_queries()`:
-   - Displays all stored queries from the in-memory dictionary.
+## How to Run the Program
 
-3. `delete_query(query_id)`:
-   - Deletes a query by its ID from the in-memory dictionary.
-   - Throws an error if the query ID does not exist.
+1. **Setup Database**:
+   - Ensure you have a SQLite database named `Data.db` with a table called `query`.
+   - Add some sample queries to the table.
 
-### Database Class
+2. **Run the Program**:
+   - Execute the script in Python.
+   - It will automatically fetch queries from the database and store them in memory.
 
-**Methods**:
+### Example Commands:
 
-1. `fetch_all()`:
-   - Fetches all data from the specified table in the SQLite database.
+1. **Fetching Queries from Database**:
+   - The program will fetch all the queries from the database and store them in memory.
 
-2. `close()`:
-   - Closes the database connection.
+2. **Viewing Queries**:
+   - After fetching, the queries will be printed in the console.
+
+3. **Deleting a Query**:
+   - The script will delete the query with ID `2` and display the remaining queries in memory.
 
 ## Example Usage
 
-```python
-# Example usage of QueryStorage class
-query_system = QueryStorage()
-
-# Adding queries to in-memory storage
-query_system.add_query(1, "What is the fee structure?")
-query_system.add_query(2, "How can I apply for a scholarship?")
-query_system.add_query(3, "What documents are needed for admission?")
-
-# Viewing all queries
-query_system.view_queries()
-
-# Deleting a query
-query_system.delete_query(2)
-
-# Viewing queries after deletion
-query_system.view_queries()
-
-# Example usage of Database class
-db = Database("query_table")
-
-# Fetching all queries from the database
-db_queries = db.fetch_all()
-for query_id, query_text in db_queries:
-    print(f"ID: {query_id}, Query: {query_text}")
-
-# Closing the database connection
-db.close()
+```bash
+python query_storage.py
 ```
 
-## Contributing
+### Output Example:
 
-Contributions are welcome! If you have any ideas to improve the system or find any bugs, feel free to open an issue or a pull request.
+```plaintext
+Fetching queries from the database and adding them to memory:
+Query with ID 1 added successfully!
+Query with ID 2 added successfully!
+Query with ID 3 added successfully!
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes.
-4. Commit your changes (`git commit -am 'Add some feature'`).
-5. Push to the branch (`git push origin feature-branch`).
-6. Open a pull request.
+Stored Queries in Memory after adding from the Database:
+ID: 1, Query: What is the fee structure?
+ID: 2, Query: How can I apply for a scholarship?
+ID: 3, Query: What documents are needed for admission?
+
+Query with ID 2 deleted successfully!
+
+Stored Queries in Memory after Deletion:
+ID: 1, Query: What is the fee structure?
+ID: 3, Query: What documents are needed for admission?
+```
+
+## Customization
+
+- **Add New Queries**: You can modify the script to allow dynamic input from users to add new queries.
+- **Modify Database Connection**: You can change the database name or table structure by modifying the `Database` class accordingly.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
