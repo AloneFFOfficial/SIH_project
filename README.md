@@ -60,8 +60,8 @@ The CSV file has the following structure:
 
 | query_id | query_text         |
 |----------|--------------------|
-| 1        | How much is the fee|
-| 2        | What is its fee str|
+| 1        | How much is the fee for machanical|
+| 2        | What is its fee Structure|
 
 ### How the Application Works
 
