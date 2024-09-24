@@ -1,13 +1,14 @@
-import sqlite3 as sql
+import pandas as pd
 
-'''Getting data from the database'''
-class Database:
-    def __init__(self):
-        self.conn = sql.connect('Data.db')
-        self.cur = self.conn.cursor()
-        data = self.cur.execute('select * from query')
-        self.data = data.fetchall()  # Fetch all rows from the 'query' table
-        self.conn.close()
+'''Getting data from the csv'''
+class CSV_DATA:
+    def __init__(self,new_file):
+        try:
+            self.data=pd.read_csv(new_file)
+        except Exception as e:
+            print(f"file not found: {e}")
+            self.data=pd.DataFrame
+
 
     def get_data(self):
         return self.data
@@ -29,9 +30,9 @@ class QueryStorage:
         except ValueError as e:
             print(e)
 
-    '''Adding multiple queries from the database'''
-    def add_queries_from_db(self, db_queries):
-        for query in db_queries:
+    '''Adding multiple queries from the CSV_DATA'''
+    def add_queries_from_csv(self, csv_queries):
+        for query in csv_queries:
             query_id, query_text = query  # Unpack each tuple (id, text)
             self.add_query(query_id, query_text)  # Add each query to the dict
 
@@ -58,20 +59,21 @@ if __name__ == "__main__":
     '''Calling the query class'''
     query_system = QueryStorage()
 
-    '''Getting queries from the Database'''
-    db = Database()
+    '''Getting queries from the csv_data'''
+    new_file="queries.csv"
+    csv_data=CSV_DATA(new_file)
 
-    '''Fetching and adding queries from the Database to QueryStorage'''
-    print("\nFetching queries from the database and adding them to memory:")
-    db_queries = db.get_data()
+    '''Fetching and adding queries from the CSV_DATA to QueryStorage'''
+    print("\nFetching queries from the CSV_DATA and adding them to memory:")
+    csv_queries = csv_data.get_data()
 
-    if not db_queries:
+    if not csv_queries:
         print("No queries in the database.")
     else:
-        query_system.add_queries_from_db(db_queries)
+        query_system.add_queries_from_csv(csv_queries)
 
-    '''Viewing the queries in memory after adding from the database'''
-    print("\nStored Queries in Memory after adding from the Database:")
+    '''Viewing the queries in memory after adding from the cvs'''
+    print("\nStored Queries in Memory after adding from the cvs:")
     query_system.view_queries()
 
     '''Deleting data from the query dict'''
@@ -80,4 +82,3 @@ if __name__ == "__main__":
     '''Viewing remaining queries in memory after deletion'''
     print("\nStored Queries in Memory after Deletion:")
     query_system.view_queries()
-
