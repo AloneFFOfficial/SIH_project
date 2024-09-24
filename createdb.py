@@ -22,7 +22,7 @@ conn.commit()
             # Close the connection
 conn.close()
 
-print("Multiple records inserted successfully!")
+
 
 
 

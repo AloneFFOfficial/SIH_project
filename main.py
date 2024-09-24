@@ -24,7 +24,7 @@ class CSV_DATA:
     def add_query_to_csv(self, query_id, query_text):
         if query_id not in self.data['query_id'].values:
             new_query = {'query_id': query_id, 'query_text': query_text}
-            self.data = self.data.append(new_query, ignore_index=True)
+            self.data = self.data._append(new_query, ignore_index=True)
             self.data.to_csv(self.file, index=False)
             print(f"Query with ID {query_id} added to CSV.")
         else:
