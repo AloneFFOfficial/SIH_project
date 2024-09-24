@@ -7,7 +7,7 @@ class CSV_DATA:
             self.data=pd.read_csv(new_file)
         except Exception as e:
             print(f"file not found: {e}")
-            self.data=pd.DataFrame
+            self.data=pd.DataFrame(self.data)
 
 
     def get_data(self):
